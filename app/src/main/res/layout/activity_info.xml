@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".InfoActivity">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="412dp"
+        android:layout_height="90dp"
+        android:background="#064A9A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/white_background3"
+        android:layout_width="70dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo3"
+        android:layout_width="70dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic____svg" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="147dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/a_gothic15"
+        android:text="학습 공간 정보"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="200dp"
+        android:layout_height="90dp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toEndOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="90dp"
+        android:layout_height="350dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="100dp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="90dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="100dp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/a_gothic15"
+        android:text="B동 정문"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bFrontBtn"
+        app:layout_constraintEnd_toEndOf="@+id/bFrontBtn"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="@+id/bFrontBtn"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/a_gothic15"
+        android:text="A동 정문"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/aFrontBtn"
+        app:layout_constraintEnd_toEndOf="@+id/aFrontBtn"
+        app:layout_constraintStart_toStartOf="@+id/aFrontBtn"
+        app:layout_constraintTop_toTopOf="@+id/aFrontBtn" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/a_gothic15"
+        android:text="B동 후문"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="@+id/bBackBtn"
+        app:layout_constraintStart_toStartOf="@+id/bBackBtn"
+        app:layout_constraintTop_toTopOf="@+id/bBackBtn" />
+
+    <Button
+        android:id="@+id/bFrontBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#4D064A9A"
+        android:fontFamily="@font/a_gothic15"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="@+id/textView23"
+        app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+    <Button
+        android:id="@+id/aFrontBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#4D064A9A"
+        android:fontFamily="@font/a_gothic15"
+        app:layout_constraintEnd_toEndOf="@+id/textView21"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <Button
+        android:id="@+id/bBackBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#4D064A9A"
+        android:fontFamily="@font/a_gothic15"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView23" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#A5A5A5"
+        android:fontFamily="@font/a_gothic15"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="EV"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="@+id/textView23" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#A5A5A5"
+        android:fontFamily="@font/a_gothic15"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="EV"
+        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+        app:layout_constraintStart_toStartOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="90dp"
+        android:layout_height="0dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#4D007BFF"
+        android:fontFamily="@font/a_gothic15"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="탁구장"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_square"
+        android:backgroundTint="#4D007BFF"
+        android:fontFamily="@font/a_gothic15"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="취창업\n라운지"
+        app:layout_constraintBottom_toTopOf="@+id/textView24"
+        app:layout_constraintEnd_toStartOf="@+id/textView24"
+        app:layout_constraintStart_toStartOf="@+id/textView23"
+        app:layout_constraintTop_toBottomOf="@+id/bFrontBtn" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:srcCompat="@drawable/boy" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/girl" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/a_gothic15"
+        android:text="정보기술대학 1F"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/clickText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:fontFamily="@font/a_gothic15"
+        android:text="클릭하여 상세정보 확인"
+        android:textColor="#9F9F9F"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
