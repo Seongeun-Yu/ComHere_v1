@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:fontFamily="@font/a_gothic12"
-        android:text="B동 후문"
+        android:text="B동 정문"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -121,7 +121,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/a_gothic12"
-        android:text="B동 정문"
+        android:text="B동 후문"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -129,7 +129,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView14" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/aFront"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -141,19 +141,19 @@
         app:layout_constraintTop_toTopOf="@+id/textView14" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/bFront"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="40dp"
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track_selector"
-        app:layout_constraintBottom_toTopOf="@+id/switch3"
+        app:layout_constraintBottom_toTopOf="@+id/bBack"
         app:layout_constraintEnd_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/aFront"
         app:layout_constraintVertical_bias="0.397" />
 
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/bBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
