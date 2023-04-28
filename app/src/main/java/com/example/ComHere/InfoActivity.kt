@@ -21,13 +21,13 @@ class InfoActivity : AppCompatActivity() {
         val aBack: Button = findViewById(R.id.bBackBtn)
         val bFront: Button = findViewById(R.id.bFrontBtn)
         aFront.setOnClickListener {
-            cuDialog(aFront, R.layout.dialog, R.drawable.a_front)
+            cuDialog(aFront, R.layout.dialog, R.drawable.afront)
         }
         bFront.setOnClickListener {
-            cuDialog(bFront, R.layout.dialog, R.drawable.b_front)
+            cuDialog(bFront, R.layout.dialog, R.drawable.bfront)
         }
         aBack.setOnClickListener {
-            cuDialog(aBack, R.layout.dialog, R.drawable.b_back)
+            cuDialog(aBack, R.layout.dialog, R.drawable.bback)
         }
         
         // 깜빡이는 애니메이션 적용
@@ -56,11 +56,11 @@ class InfoActivity : AppCompatActivity() {
         val image: ImageView = myLayout.findViewById(R.id.image)
         val description:TextView = myLayout.findViewById(R.id.description)
         image.setImageResource(imageRes)
-        if (imageRes == R.drawable.a_front) { // A동 정문에 대한 설명
+        if (imageRes == R.drawable.afront) { // A동 정문에 대한 설명
             location.setText("A동 정문")
             description.setText("전체 좌석 수 : 20석\n주변 : 남자 화장실, 탁구장\n")
 
-        } else if (imageRes == R.drawable.b_front) { // B동 정문에 대한 설명
+        } else if (imageRes == R.drawable.bfront) { // B동 정문에 대한 설명
             location.setText("B동 정문")
             description.setText("전체 좌석 수 : 20석\n주변 : 여자 화장실, 여학생 휴게실, 취창업 라운지\n")
         } else {

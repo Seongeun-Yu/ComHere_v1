@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1031284638649",
+    "project_id": "comhere-7a379",
+    "storage_bucket": "comhere-7a379.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031284638649:android:e8440a35019414c05fac68",
+        "android_client_info": {
+          "package_name": "com.example.ComHere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031284638649-b7b941i1bvg7u7mt9csv4lulpjig7g0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoCeAh9sZdj1RkVSQ4Hwq5vZ2ar1zrv88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031284638649-b7b941i1bvg7u7mt9csv4lulpjig7g0g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

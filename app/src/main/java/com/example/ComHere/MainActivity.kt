@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -15,58 +16,72 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class MainActivity : AppCompatActivity() {
+    private val BASE_URL = "http://117.16.244.20:31415/"
+
     lateinit var colorsItems_red: ArrayList<Int>
     lateinit var colorsItems_yellow: ArrayList<Int>
     lateinit var colorsItems_blue: ArrayList<Int>
+    private var resultList = mutableListOf<ObjectDetectionResult>()
+
+    // 파이 차트
+    lateinit var aFront: PieChart
+    lateinit var bFront: PieChart
+    lateinit var bBack: PieChart
+
+    // 파이 차트 텍스트(사용중 좌석 수 / 전체 좌석 수)
+    lateinit var aFrontText:TextView
+    lateinit var bFrontText:TextView
+    lateinit var bBackText:TextView
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        dataRefresh()
+
+        drawBasic()
+        getObjectDetectionResult()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onResume() {
         super.onResume()
-        dataRefresh()
+        drawBasic()
+        getObjectDetectionResult()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun dataRefresh(){
-
-        var aFrontSeat = 4f // A동 정문 잔여석 수
-        var bFrontSeat = 9f // B동 정문 잔여석 수
-        var bBackSeat = 15f // B동 후문 잔여석 수
-
-        var aFrontFull = 20f // A동 정문 전체 좌석 수
-        var bFrontFull = 20f // B동 정문 전체 좌석 수
-        var bBackFull = 24f // B동 후문 전체 좌석 수
-
+    private fun drawBasic(){
         // 알림 설정 버튼 & 클릭 이벤트
-        var alarmBtn: Button = findViewById(R.id.alarm_btn)
+        val alarmBtn: Button = findViewById(R.id.alarm_btn)
         alarmBtn.setOnClickListener {
-            var alarmIntent: Intent = Intent(this, AlarmActivity::class.java)
+            val alarmIntent: Intent = Intent(this, AlarmActivity::class.java)
             startActivity(alarmIntent)
         }
 
         // 학습 공간 정보 버튼 & 클릭 이벤트
-        var infoBtn: Button = findViewById(R.id.info_btn)
+        val infoBtn: Button = findViewById(R.id.info_btn)
         infoBtn.setOnClickListener {
-            var infoIntent: Intent = Intent(this, InfoActivity::class.java)
+            val infoIntent: Intent = Intent(this, InfoActivity::class.java)
             startActivity(infoIntent)
         }
 
         // 파이 차트
-        var aFront: PieChart = findViewById(R.id.a_front)
-        var bFront: PieChart = findViewById(R.id.b_front)
-        var bBack: PieChart = findViewById(R.id.b_back)
+        aFront = findViewById(R.id.a_front)
+        bFront = findViewById(R.id.b_front)
+        bBack = findViewById(R.id.b_back)
 
-        var aFrontText:TextView = findViewById(R.id.aFrontText)
-        var bFrontText:TextView = findViewById(R.id.bFrontText)
-        var bBackText:TextView = findViewById(R.id.bBackText)
+        // 파이 차트 텍스트(사용중 좌석 수 / 전체 좌석 수)
+        aFrontText = findViewById(R.id.aFrontText)
+        bFrontText = findViewById(R.id.bFrontText)
+        bBackText = findViewById(R.id.bBackText)
 
         // 파이 차트 항목들의 색상
         colorsItems_red = ArrayList<Int>()
@@ -81,11 +96,6 @@ class MainActivity : AppCompatActivity() {
         colorsItems_blue.add(resources.getColor(R.color.inu_blue, null))
         colorsItems_blue.add(resources.getColor(R.color.inu_lightblue, null))
 
-        // 파이 차트 그리기
-        drawPieGraph(aFront, aFrontSeat, aFrontFull, aFrontText)
-        drawPieGraph(bFront, bFrontSeat, bFrontFull, bFrontText)
-        drawPieGraph(bBack, bBackSeat, bBackFull, bBackText)
-
         // 범례 지우기
         val legend1: Legend = aFront.legend
         legend1.setEnabled(false)
@@ -95,20 +105,101 @@ class MainActivity : AppCompatActivity() {
         legend3.setEnabled(false)
 
         // 새로고침
-        var swipe:SwipeRefreshLayout = findViewById(R.id.swipe)
+        val swipe:SwipeRefreshLayout = findViewById(R.id.swipe)
         swipe.setOnRefreshListener{
             swipe.isRefreshing = false
-            val random1 = (0..20).random()
-            val random2 = (0..20).random()
-            val random3 = (0..24).random()
-            aFrontSeat = random1.toFloat()    // A동 정문 잔여석 업데이트
-            bFrontSeat = random2.toFloat()     // B동 정문 잔여석 업데이트
-            bBackSeat = random3.toFloat()     // B동 후문 잔여석 업데이트
-            drawPieGraph(aFront, aFrontSeat, aFrontFull, aFrontText)
-            drawPieGraph(bFront, bFrontSeat, bFrontFull, bFrontText)
-            drawPieGraph(bBack, bBackSeat, bBackFull, bBackText)
+            getObjectDetectionResult()
         }
     }
+    private fun getObjectDetectionResult() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val api = retrofit.create(ObjectDetectionApi::class.java)
+
+        api.getRecentResults().enqueue(object : Callback<List<ObjectDetectionResult>> {
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun onResponse(call: Call<List<ObjectDetectionResult>>, response: Response<List<ObjectDetectionResult>>) {
+                if(response.isSuccessful){
+                    val data = response.body()
+                    processData(aFront, data!!.toMutableList(), 20f, aFrontText) // callback 메소드 호출
+                    Log.d("retrofit", (resultList).toString())
+                    Log.d("retrofit", (resultList.size).toString())
+                }
+                else{
+                    val errorBody = response.errorBody().toString()
+                    Log.d("error", errorBody)
+                }
+            }
+            override fun onFailure(call: Call<List<ObjectDetectionResult>>, t: Throwable) {
+                Log.d("retrofit_error", t.toString())
+            }
+        })
+
+        /*
+        api.B동정문메소드().enqueue(object : Callback<List<ObjectDetectionResult>> {
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun onResponse(call: Call<List<ObjectDetectionResult>>, response: Response<List<ObjectDetectionResult>>) {
+                if(response.isSuccessful){
+                    val data = response.body()
+                    processData(bFront, data!!.toMutableList(), 20f, bFrontText) // callback 메소드 호출
+                    Log.d("retrofit", (resultList).toString())
+                    Log.d("retrofit", (resultList.size).toString())
+                }
+                else{
+                    val errorBody = response.errorBody().toString()
+                    Log.d("error", errorBody)
+                }
+            }
+            override fun onFailure(call: Call<List<ObjectDetectionResult>>, t: Throwable) {
+                Log.d("retrofit_error", t.toString())
+            }
+        })
+
+        api.B동후문메소드().enqueue(object : Callback<List<ObjectDetectionResult>> {
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun onResponse(call: Call<List<ObjectDetectionResult>>, response: Response<List<ObjectDetectionResult>>) {
+                if(response.isSuccessful){
+                    val data = response.body()
+                    processData(bBack, data!!.toMutableList(), 20f, bBackText) // callback 메소드 호출
+                    Log.d("retrofit", (resultList).toString())
+                    Log.d("retrofit", (resultList.size).toString())
+                }
+                else{
+                    val errorBody = response.errorBody().toString()
+                    Log.d("error", errorBody)
+                }
+            }
+            override fun onFailure(call: Call<List<ObjectDetectionResult>>, t: Throwable) {
+                Log.d("retrofit_error", t.toString())
+            }
+        })
+
+         */
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun processData(pieChart:PieChart, data: MutableList<ObjectDetectionResult>?, full:Float, pieText:TextView){
+        if(data != null){
+            var listLen = (data.size).toFloat() // 배열 길이
+            Log.d("output", data.toString()) // 초기 배열 확인
+            Log.d("output", listLen.toString()) //  초기 배열 길이 확인
+            if(listLen != 0f)  listLen = updateSeatNum(listLen, data) // 배열 길이 업데이트
+            drawPieGraph(pieChart, listLen, full, pieText)
+        }
+    }
+
+    // 정확도 낮은 것 제외하여 잔여석 수 업데이트
+    private fun updateSeatNum(seat:Float, resultList:MutableList<ObjectDetectionResult>) : Float{
+        var original = seat
+        for(i in 0 until seat.toInt()) {
+            if (resultList[i].confidence <= 0.4) original--
+        }
+        return original
+    }
+
     private fun drawPieGraph(pieChart:PieChart, seat:Float, full:Float, pieText:TextView){
         // 파이 차트 데이터(사용 중인 좌석 수, 잔여석)
         val entries = listOf(PieEntry(full-seat), PieEntry(seat))

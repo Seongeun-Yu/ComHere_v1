@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/textView13"
-        android:layout_width="147dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/a_gothic15"
         android:text="학습 공간 정보"
