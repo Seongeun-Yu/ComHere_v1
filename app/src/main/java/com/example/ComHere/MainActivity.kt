@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
 
         val api = retrofit.create(ObjectDetectionApi::class.java)
 
-        api.getRecentResults().enqueue(object : Callback<List<ObjectDetectionResult>> {
+        api.getAFrontResults().enqueue(object : Callback<List<ObjectDetectionResult>> {
             @RequiresApi(Build.VERSION_CODES.M)
             override fun onResponse(call: Call<List<ObjectDetectionResult>>, response: Response<List<ObjectDetectionResult>>) {
                 if(response.isSuccessful){
@@ -138,8 +138,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        /*
-        api.B동정문메소드().enqueue(object : Callback<List<ObjectDetectionResult>> {
+
+        api.getBFrontResults().enqueue(object : Callback<List<ObjectDetectionResult>> {
             @RequiresApi(Build.VERSION_CODES.M)
             override fun onResponse(call: Call<List<ObjectDetectionResult>>, response: Response<List<ObjectDetectionResult>>) {
                 if(response.isSuccessful){
@@ -158,12 +158,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        api.B동후문메소드().enqueue(object : Callback<List<ObjectDetectionResult>> {
+        api.getBBackResults().enqueue(object : Callback<List<ObjectDetectionResult>> {
             @RequiresApi(Build.VERSION_CODES.M)
             override fun onResponse(call: Call<List<ObjectDetectionResult>>, response: Response<List<ObjectDetectionResult>>) {
                 if(response.isSuccessful){
                     val data = response.body()
-                    processData(bBack, data!!.toMutableList(), 20f, bBackText) // callback 메소드 호출
+                    processData(bBack, data!!.toMutableList(), 24f, bBackText) // callback 메소드 호출
                     Log.d("retrofit", (resultList).toString())
                     Log.d("retrofit", (resultList.size).toString())
                 }
@@ -177,7 +177,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-         */
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
