@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         drawBasic()
         getObjectDetectionResult()
     }
@@ -194,7 +193,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateSeatNum(seat:Float, resultList:MutableList<ObjectDetectionResult>) : Float{
         var original = seat
         for(i in 0 until seat.toInt()) {
-            if (resultList[i].confidence <= 0.4) original--
+            if (resultList[i].confidence <= 0.25) original--
         }
         return original
     }
